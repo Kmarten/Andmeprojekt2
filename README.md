@@ -1,4 +1,4 @@
 # Andmeprojekt2
 Andmeprojekt
 
-Tartu Tamme Gümnaasiumi õpialsed
+Tartu Tamme Gümnaasiumi õpilased
