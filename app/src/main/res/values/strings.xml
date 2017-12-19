@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Andmeprojekt</string>
+    <string name="app_name">Andmify</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="HumanImg">Display human picture</string>
+    <string name="human_first_name">First Name</string>
+    <string name="human_last_name">Last Name</string>
 </resources>
