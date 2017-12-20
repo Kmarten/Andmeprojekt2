@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 /**
- * Created by Kasutaja on 18.12.2017.
+ * Created by Ahto on 18.12.2017.
  */
 
 public class DataObjects {
