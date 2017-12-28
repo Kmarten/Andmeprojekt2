@@ -3,7 +3,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="HumanImg">Display human picture</string>
-    <string name="human_first_name">First Name</string>
+    <string name="ObjectImg">Display object picture</string>
+    <string name="human_first_name">Name</string>
     <string name="human_last_name">Last Name</string>
 </resources>

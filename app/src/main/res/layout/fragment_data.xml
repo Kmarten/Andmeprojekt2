@@ -1,0 +1,241 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="com.example.kasutaja.andmeprojekt.DataFragment">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/dataLinearLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Laud"
+                android:textSize="30sp" />
+
+            <ImageView
+                android:id="@+id/ObjectImg"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+
+                android:contentDescription="@string/ObjectImg"
+                android:gravity="center"
+                android:src="@drawable/laud" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pikkus" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/data"
+                android:paddingStart="30dp"
+                android:text="200cm"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Laius" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/data"
+                android:paddingStart="30dp"
+                android:text="100cm"
+                android:textSize="30sp" />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/dataFloatingActionButton"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_gravity="bottom|end"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:fabSize="auto"
+        app:layout_constraintEnd_toEndOf="parent" />
+</android.support.design.widget.CoordinatorLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<android.support.constraint.ConstraintLayout >
+
+    <android.support.v7.widget.GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="18dp"
+        app:columnCount="2"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_gravity="center"
+        app:orientation="horizontal"
+        app:rowCount="4">
+
+        <ImageView
+            android:id="@+id/ObjectImg"
+
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="20dp"
+            android:contentDescription="@string/ObjectImg"
+            android:src="@drawable/laud"
+            app:layout_columnWeight="1" />
+
+        <EditText
+            android:id="@+id/Name"
+            android:layout_width="150dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:hint="@string/human_first_name"
+            android:textSize="24sp"
+            app:layout_columnWeight="1" />
+
+        <EditText
+            android:id="@+id/data1_name"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:hint="@string/human_first_name"
+            app:layout_columnWeight="1" />
+
+        <EditText
+            android:id="@+id/data1"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:hint="@string/human_first_name"
+            app:layout_columnWeight="1" />
+
+        <EditText
+            android:id="@+id/data2_name"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:hint="@string/human_first_name"
+            app:layout_columnWeight="1" />
+
+        <EditText
+            android:id="@+id/data2"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:hint="@string/human_first_name"
+            app:layout_columnWeight="1" />
+
+    </android.support.v7.widget.GridLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="26dp"
+        android:layout_marginEnd="17dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gridLayout" />
+
+    <View
+
+
+
+
+    android:id="@+id/separatorLine"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_alignParentStart="true"
+    android:layout_below="@+id/ObjectImg"
+    android:background="#565656"/>-->
+
