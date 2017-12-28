@@ -26,7 +26,7 @@ public class DataFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_data, container, false);
-        FloatingActionButton mFab = (FloatingActionButton)view.findViewById(R.id.dataFloatingActionButton);
+        /*FloatingActionButton mFab = (FloatingActionButton)view.findViewById(R.id.dataFloatingActionButton);
 
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +66,7 @@ public class DataFragment extends Fragment {
             }
         }
 
-        );
+        );*/
         return view;
     }
 

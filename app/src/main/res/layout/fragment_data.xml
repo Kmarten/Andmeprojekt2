@@ -35,8 +35,8 @@
                 android:layout_gravity="center"
 
                 android:contentDescription="@string/ObjectImg"
-                android:gravity="center"
-                android:src="@drawable/laud" />
+                android:gravity="center"/>
+               // android:src="@drawable/laud" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -67,23 +67,15 @@
 
 
         </LinearLayout>
-
-
     </ScrollView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/dataFloatingActionButton"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:layout_gravity="bottom|end"
-        android:src="@android:drawable/ic_input_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:fabSize="auto"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <Button
+        android:id="@+id/bCreate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create" />
+
+
 </android.support.design.widget.CoordinatorLayout>
 
 

@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Andmeprojekt.iml" filepath="$PROJECT_DIR$/.idea/Andmeprojekt.iml" />
+      <module fileurl="file://C:\Users\Ahto\Desktop\Andmeprojekt2\.idea\Andmeprojekt.iml" filepath="C:\Users\Ahto\Desktop\Andmeprojekt2\.idea\Andmeprojekt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Andmeprojekt2.iml" filepath="$PROJECT_DIR$/.idea/Andmeprojekt2.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Ahto\Desktop\Andmeprojekt2\app\app.iml" filepath="C:\Users\Ahto\Desktop\Andmeprojekt2\app\app.iml" />
     </modules>
   </component>
 </project>
