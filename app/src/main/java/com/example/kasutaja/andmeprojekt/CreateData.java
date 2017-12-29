@@ -1,11 +1,10 @@
 package com.example.kasutaja.andmeprojekt;
 
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 
 /**
  * Created by Ahto on 28.12.2017.
@@ -22,7 +21,7 @@ public class CreateData extends AppCompatActivity {
 
         arv = getIntent().getIntExtra("arv", 0);
 
-        Button create = (Button) findViewById(R.id.bCreate);
+        FloatingActionButton create = (FloatingActionButton) findViewById(R.id.bCreate);
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
