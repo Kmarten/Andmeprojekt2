@@ -1,10 +1,8 @@
 package com.example.kasutaja.andmeprojekt;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 /**
  * Created by Ahto on 28.12.2017.
@@ -12,24 +10,27 @@ import android.view.View;
 
 public class CreateData extends AppCompatActivity {
 
-    int arv;
+    private PageAdapter pageAdapter;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_data);
 
-        arv = getIntent().getIntExtra("arv", 0);
+        pageAdapter = new PageAdapter(getSupportFragmentManager());
 
-        FloatingActionButton create = (FloatingActionButton) findViewById(R.id.bCreate);
+        viewPager = findViewById(R.id.container);
 
-        create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //collectData();
-                //saveData();
-                startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("arv", arv+1));
-            }
-        });
+        setUpViewPager(viewPager);
     }
+
+    private void setUpViewPager(ViewPager viewPager) {
+        PageAdapter adapter = new PageAdapter(getSupportFragmentManager());
+        adapter.addFragment(new CreateFragment(), "Create Fragment");
+
+        viewPager.setAdapter(adapter);
+    }
+
+
 }
