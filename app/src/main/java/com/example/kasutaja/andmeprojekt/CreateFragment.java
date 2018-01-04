@@ -61,6 +61,7 @@ public class CreateFragment extends Fragment {
                 LinearLayout.LayoutParams.WRAP_CONTENT
         ));
         et.setText("Mina olen uus");
+        et.setId(View.generateViewId());
         et.setBackgroundColor(Color.RED);
         ll.addView(et);
     }
