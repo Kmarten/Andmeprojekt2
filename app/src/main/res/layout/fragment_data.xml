@@ -71,7 +71,8 @@
                 android:paddingStart="50dp"
                 android:paddingEnd="20dp"
                 android:text="100cm"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:layout_marginBottom="30dp"/>
 
         </LinearLayout>
     </ScrollView>

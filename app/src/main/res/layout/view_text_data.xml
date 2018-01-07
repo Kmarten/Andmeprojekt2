@@ -8,8 +8,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_start_data"
-            android:layout_marginTop="30dp"
             android:text="@string/data_name_blank" />
+    <!--android:layout_marginTop="30dp"-->
 
         <TextView
             android:id="@+id/data"
@@ -20,5 +20,12 @@
             android:paddingEnd="20dp"
             android:paddingStart="50dp"
             android:text="@string/data_blank"
+            android:elevation="2dp"
             android:textSize="30sp" />
+        <android.support.v4.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="">
+
+        </android.support.v4.widget.Space>
 </LinearLayout>
