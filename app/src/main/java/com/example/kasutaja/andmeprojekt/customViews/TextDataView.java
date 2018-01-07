@@ -16,11 +16,10 @@ import com.example.kasutaja.andmeprojekt.R;
  */
 
 public class TextDataView extends LinearLayout {
-    private View rootView;
-    private TextView dn; //data_name
-    private TextView d; //data
+    View rootView;
+    public TextView dn; //data_name
+    public TextView d; //data
 
-    LinearLayout ll = findViewById(R.id.dataLinearLayout);;
     //private String data_name = "Data_name";
     //private String data = "Data";
 
@@ -50,20 +49,6 @@ public class TextDataView extends LinearLayout {
 
         dn.setId(data_name_id);
         d.setId(data__id);
-
-        /*dn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //work in progress
-            }
-        });
-
-        d.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //work in progress
-            }
-        });*/
     }
 
     public void setDataName(String name) {
@@ -77,12 +62,10 @@ public class TextDataView extends LinearLayout {
         requestLayout();
     }
 
+
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        /*ll.layout(0,0,canvas.getWidth(),canvas.getHeight());
-        ll.addView(dn);
-        ll.addView(d);*/
     }
 
 

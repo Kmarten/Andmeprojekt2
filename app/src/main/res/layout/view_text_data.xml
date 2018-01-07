@@ -9,9 +9,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_start_data"
             android:layout_marginTop="30dp"
-            android:text="@string/data_name_blank"
-            android:clickable="true"
-            android:focusable="true"/>
+            android:text="@string/data_name_blank" />
 
         <TextView
             android:id="@+id/data"
@@ -22,7 +20,5 @@
             android:paddingEnd="20dp"
             android:paddingStart="50dp"
             android:text="@string/data_blank"
-            android:textSize="30sp"
-            android:clickable="true"
-            android:focusable="true"/>
+            android:textSize="30sp" />
 </LinearLayout>

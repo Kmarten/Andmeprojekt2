@@ -22,7 +22,6 @@ import java.util.ArrayList;
 public class CreateFragment extends Fragment {
 
     int arv;
-    int oarv = 0;
     ArrayList<Long> ids;
     FloatingActionButton create;
     View inflated;
@@ -55,16 +54,14 @@ public class CreateFragment extends Fragment {
     }
 
     protected void addField(){
-        //EditText et = new EditText(getActivity());
             final Snackbar mySnackbar = Snackbar.make(getView(), "Data object created", Snackbar.LENGTH_SHORT);
             LinearLayout ll = getView().findViewById(R.id.dataLinearLayout);
-            TextDataView cview = new TextDataView(getContext());
-            oarv++;
+            final TextDataView cview = new TextDataView(getContext());
             cview.setLayoutParams(new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             ));
-            //Debugging
+            /*//Debugging
             ShapeDrawable sd = new ShapeDrawable();
 
             // Specify the shape of ShapeDrawable
@@ -80,29 +77,40 @@ public class CreateFragment extends Fragment {
             sd.getPaint().setStyle(Paint.Style.STROKE);
 
             // Finally, add the drawable background to TextView
-            cview.setBackground(sd);
+            cview.setBackground(sd);*/
 
             cview.setDataName("Raadius");
             cview.setData("1000cm");
+            cview.setId(View.generateViewId());
+
 
             cview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   mySnackbar.setText("Object clicked: " + Integer.toString(oarv));
+                   mySnackbar.setText("Object clicked: " + cview.getId());
                    mySnackbar.show();
                 }
             });
-            ll.addView(cview);
-            mySnackbar.setText("Data object created");
-            mySnackbar.show();
 
-       /* et.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        ));
-        et.setText("Mina olen uus");
-        et.setId(View.generateViewId());
-        et.setBackgroundColor(Color.RED);
-        ll.addView(et);*/
+            cview.d.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mySnackbar.setText("Object data clicked");
+                    mySnackbar.show();
+                }
+            });
+
+            cview.dn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mySnackbar.setText("Object name clicked");
+                    mySnackbar.show();
+                }
+            });
+
+            ll.addView(cview);
+            /*mySnackbar.setText("Data object created");
+            mySnackbar.show();*/
+
     }
 }
