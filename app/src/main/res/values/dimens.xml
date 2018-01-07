@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Number values-->
+    <dimen name="padding_start_data">50dp</dimen>
+    <dimen name="margin_start_data">50dp</dimen>
+</resources>

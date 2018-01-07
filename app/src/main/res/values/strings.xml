@@ -6,4 +6,9 @@
     <string name="ObjectImg">Display object picture</string>
     <string name="human_first_name">Name</string>
     <string name="human_last_name">Last Name</string>
+    <string name="data_name_blank">Data name</string>
+    <string name="data_blank">Data</string>
+
+
+
 </resources>

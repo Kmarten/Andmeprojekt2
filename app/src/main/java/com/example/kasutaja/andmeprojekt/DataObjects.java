@@ -9,6 +9,7 @@ import java.util.HashMap;
  * Created by Ahto on 18.12.2017.
  */
 
+//Aeg, millal objeti muudeti
 public class DataObjects {
     private static int id = 0; //Objects counter
     private String name;

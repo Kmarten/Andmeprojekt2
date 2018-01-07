@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!--Placeholders-->
             <TextView
                 android:layout_width="200dp"
                 android:layout_height="50dp"
@@ -42,19 +43,23 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_start_data"
                 android:text="Pikkus" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/data"
-                android:paddingStart="30dp"
+                android:layout_marginStart="@dimen/padding_start_data"
+                android:paddingStart="50dp"
+                android:paddingEnd="20dp"
                 android:text="200cm"
                 android:textSize="30sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_start_data"
                 android:layout_marginTop="30dp"
                 android:text="Laius" />
 
@@ -62,10 +67,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/data"
-                android:paddingStart="30dp"
+                android:layout_marginStart="@dimen/padding_start_data"
+                android:paddingStart="50dp"
+                android:paddingEnd="20dp"
                 android:text="100cm"
                 android:textSize="30sp" />
-
 
         </LinearLayout>
     </ScrollView>
