@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class CreateFragment extends Fragment {
 
     int arv;
-    ArrayList<Long> ids;
+    ArrayList<Integer> idsOfDataFields;
     FloatingActionButton create;
     View inflated;
 
@@ -51,6 +51,12 @@ public class CreateFragment extends Fragment {
         arv = getActivity().getIntent().getIntExtra("arv", 0);
 
 
+    }
+
+    protected void collectData(){
+        for(int  i = 0; i<idsOfDataFields.size(); i++){
+            //(asfkdhnjkö
+        }
     }
 
     protected void addField(){
@@ -82,6 +88,7 @@ public class CreateFragment extends Fragment {
             cview.setDataName("Raadius");
             cview.setData("1000cm");
             cview.setId(View.generateViewId());
+            idsOfDataFields.add(cview.getId());
 
 
             cview.setOnClickListener(new View.OnClickListener() {
