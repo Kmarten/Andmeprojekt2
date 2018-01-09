@@ -8,6 +8,10 @@
 
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/llMainActivity">
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/dataFloatingActionButton"
         android:layout_width="56dp"
@@ -29,5 +33,6 @@
         android:text="0"
         tools:layout_editor_absoluteX="144dp"
         tools:layout_editor_absoluteY="164dp" />
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

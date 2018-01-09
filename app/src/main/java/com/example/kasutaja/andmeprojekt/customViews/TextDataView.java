@@ -56,11 +56,22 @@ public class TextDataView extends LinearLayout {
         invalidate();
         requestLayout();
     }
+
     public void setData(String data) {
         d.setText(data);
         invalidate();
         requestLayout();
+
     }
+
+    public TextView getDn() {
+        return dn;
+    }
+
+    public TextView getD() {
+        return d;
+    }
+
 
 
     @Override

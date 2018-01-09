@@ -1,10 +1,9 @@
 package com.example.kasutaja.andmeprojekt;
 
 
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RectShape;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,19 +11,27 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.kasutaja.andmeprojekt.customViews.TextDataView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class CreateFragment extends Fragment {
 
     int arv;
-    ArrayList<Integer> idsOfDataFields;
+    ArrayList<Integer> idsOfDataFields = new ArrayList<>();
     FloatingActionButton create;
+    Button addViews;
     View inflated;
+    HashMap<String, String> objectData = new HashMap<>();
+    ArrayList<DataObject> allObjects = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -34,10 +41,18 @@ public class CreateFragment extends Fragment {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //collectData(); not existing yet
-                //saveData(); not existing yet
+                collectData();
+                createDataObject();
+                saveDataToMobile();
+                startActivity(new Intent(getActivity(), MainActivity.class));
+            }
+        });
+
+        addViews = inflated.findViewById(R.id.btAddViews);
+        addViews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 addField();
-                //startActivity(new Intent(getActivity(), MainActivity.class).putExtra("arv", arv+1));
             }
         });
 
@@ -48,15 +63,44 @@ public class CreateFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        arv = getActivity().getIntent().getIntExtra("arv", 0);
+        retrieveDataFromPhone();
+        Toast.makeText(getContext(), "onActivity", Toast.LENGTH_SHORT).show();
+    }
 
-
+    protected void retrieveDataFromPhone() {
+        Gson gson = new Gson();
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("TestSavingFile", Context.MODE_PRIVATE);
+        String hashString = sharedPreferences.getString("HashString", null);
+        if(hashString == null){
+            allObjects = null;
+        }else {
+            allObjects = gson.fromJson(hashString, new TypeToken<ArrayList<DataObject>>() {}.getType());
+        }
     }
 
     protected void collectData(){
+
         for(int  i = 0; i<idsOfDataFields.size(); i++){
-            //(asfkdhnjkö
+            TextDataView collectedView = getView().findViewById(idsOfDataFields.get(i));
+            String collectedData = collectedView.getD().getText().toString();
+            String collectedDataName = collectedView.getDn().getText().toString();
+            objectData.put(collectedDataName, collectedData);
         }
+    }
+
+
+    private void createDataObject() {
+        DataObject newObject = new DataObject("Laud", objectData);
+        allObjects.add(newObject);
+    }
+
+    protected void saveDataToMobile(){
+        Gson gson = new Gson();
+        String objectDataString = gson.toJson(allObjects);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("TestSavingFile", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("HashString");
+        editor.putString("HashString", objectDataString).apply();
     }
 
     protected void addField(){

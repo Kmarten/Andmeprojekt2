@@ -10,7 +10,7 @@ import java.util.HashMap;
  */
 
 //Aeg, millal objeti muudeti
-public class DataObjects {
+public class DataObject {
     private static int id = 0; //Objects counter
     private String name;
     private HashMap data;
@@ -18,8 +18,9 @@ public class DataObjects {
 
     private Date creationDate;
 
-    DataObjects(String name, HashMap data, Image img){
-
+    DataObject(String name, HashMap data){
+        this.name = name;
+        this.data = data;
     }
 
 }
