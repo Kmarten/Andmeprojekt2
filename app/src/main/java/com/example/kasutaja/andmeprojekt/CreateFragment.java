@@ -91,6 +91,7 @@ public class CreateFragment extends Fragment {
 
     private void createDataObject() {
         DataObject newObject = new DataObject("Laud", objectData);
+        if(allObjects == null) allObjects = new ArrayList<>();
         allObjects.add(newObject);
     }
 
