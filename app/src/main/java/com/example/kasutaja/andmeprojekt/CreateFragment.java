@@ -2,7 +2,6 @@ package com.example.kasutaja.andmeprojekt;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -25,7 +24,6 @@ import java.util.HashMap;
 
 public class CreateFragment extends Fragment {
 
-    int arv;
     ArrayList<Integer> idsOfDataFields = new ArrayList<>();
     FloatingActionButton create;
     Button addViews;
@@ -38,7 +36,7 @@ public class CreateFragment extends Fragment {
         inflated = inflater.inflate(R.layout.fragment_data, container, false);
 
         create = inflated.findViewById(R.id.bCreate);
-        create.setOnClickListener(new View.OnClickListener() {
+        /*create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 collectData();
@@ -46,7 +44,7 @@ public class CreateFragment extends Fragment {
                 saveDataToMobile();
                 startActivity(new Intent(getActivity(), MainActivity.class));
             }
-        });
+        });*/
 
         addViews = inflated.findViewById(R.id.btAddViews);
         addViews.setOnClickListener(new View.OnClickListener() {

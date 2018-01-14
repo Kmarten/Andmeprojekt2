@@ -76,11 +76,14 @@
 
         </LinearLayout>
     </ScrollView>
+
     <Button
+        android:id="@+id/btAddViews"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"
-        android:id="@+id/btAddViews"/>
+        android:text="New"
+        android:background="@color/data_name"/>
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/bCreate"
@@ -95,12 +98,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:fabSize="auto"
         app:layout_constraintEnd_toEndOf="parent" />
-    <!--<android.support.design.widget.FloatingActionButton
-        android:id="@+id/bCreate"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_gravity="bottom|end"
-        android:text="Create" />-->
+
 
 
 </android.support.design.widget.CoordinatorLayout>

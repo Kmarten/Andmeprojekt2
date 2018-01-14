@@ -63,20 +63,7 @@ public class DataFragment extends Fragment {
 
         );*/
 
-        /*data_name_view = new TextView(getContext());
-        data_view = new TextView(getContext());
 
-        data_name_view.setText(data_name);
-        data_name_view.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
-        data_name_view.setVisibility(View.VISIBLE);
-        data_name_view.setId(data_name_id);
-
-        data_view.setText(data);
-        data_view.setBackgroundResource(R.color.data);
-        data_view.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
-        data_view.setVisibility(View.VISIBLE);
-        dp = (int)(getResources().getDisplayMetrics().density * 50 +0.5f);
-        data_view.setPadding(dp,0,0,0);*/
         return view;
     }
 
