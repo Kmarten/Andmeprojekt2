@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         if(allObjects != null) {
             arv = allObjects.size();
             for (DataObject dO : allObjects) {
-                addField();
+                addField(dO);
             }
         }
 
@@ -64,15 +64,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    protected void addField() {
+    protected void addField(DataObject dataObject) {
         LinearLayout ll = findViewById(R.id.llMainActivity);
-        Button nali = new Button(getApplicationContext());
-        nali.setLayoutParams(new LinearLayout.LayoutParams(
+        Button menuObjectBt = new Button(getApplicationContext());
+        menuObjectBt .setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         ));
 
-        ll.addView(nali);
+        menuObjectBt.setId(dataObject.getObjectId());
+        menuObjectBt.setText(dataObject.getName() + String.valueOf(dataObject.getObjectId()));
+        menuObjectBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, CreateData.class).putExtra("ObjectId", view.getId()));
+            }
+        });
+
+        ll.addView(menuObjectBt);
     }
 
 }

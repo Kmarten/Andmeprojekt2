@@ -25,7 +25,7 @@ import java.util.HashMap;
 
 public class CreateFragment extends Fragment {
 
-    int arv;
+    int index = -1;
     ArrayList<Integer> idsOfDataFields = new ArrayList<>();
     FloatingActionButton create;
     Button addViews;
@@ -64,16 +64,30 @@ public class CreateFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         retrieveDataFromPhone();
+        if(getIndexFromTheIntent()) showCreatedObjectData(allObjects.get(index));
         Toast.makeText(getContext(), "onActivity", Toast.LENGTH_SHORT).show();
+    }
+
+    private void showCreatedObjectData(DataObject dataObject) {
+        for(int i = 0; i<dataObject.getData().size(); i++){
+            addField();
+        }
+    }
+
+    private boolean getIndexFromTheIntent() {
+        Intent intent = getActivity().getIntent();
+        if(intent.hasExtra("ObjectId")){
+            index = intent.getIntExtra("ObjectId", -1);
+            return true;
+        }
+        return false;
     }
 
     protected void retrieveDataFromPhone() {
         Gson gson = new Gson();
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("TestSavingFile", Context.MODE_PRIVATE);
         String hashString = sharedPreferences.getString("HashString", null);
-        if(hashString == null){
-            allObjects = null;
-        }else {
+        if(hashString != null){
             allObjects = gson.fromJson(hashString, new TypeToken<ArrayList<DataObject>>() {}.getType());
         }
     }
@@ -90,9 +104,12 @@ public class CreateFragment extends Fragment {
 
 
     private void createDataObject() {
-        DataObject newObject = new DataObject("Laud", objectData);
-        if(allObjects == null) allObjects = new ArrayList<>();
-        allObjects.add(newObject);
+        if(index != -1){
+            allObjects.get(index).setData(objectData);
+        }else {
+            DataObject newObject = new DataObject("Laud", objectData);
+            allObjects.add(newObject);
+        }
     }
 
     protected void saveDataToMobile(){
