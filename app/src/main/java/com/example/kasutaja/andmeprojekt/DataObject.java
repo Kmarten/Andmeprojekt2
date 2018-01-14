@@ -1,6 +1,7 @@
 package com.example.kasutaja.andmeprojekt;
 
 import android.media.Image;
+import android.util.Log;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -11,7 +12,7 @@ import java.util.HashMap;
 
 //Aeg, millal objeti muudeti
 public class DataObject {
-    private static int id = 0; //Objects counter
+    private static int id; //Objects counter
     private int objectId;
     private String name;
     private HashMap data;
@@ -23,6 +24,7 @@ public class DataObject {
         this.name = name;
         this.data = data;
         objectId = id;
+        Log.e("ObjectID", "value: " + String.valueOf(objectId));
         id++;
     }
 
