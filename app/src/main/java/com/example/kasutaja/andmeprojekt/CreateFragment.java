@@ -11,6 +11,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -24,10 +26,13 @@ import java.util.HashMap;
 
 
 public class CreateFragment extends Fragment {
-
+    Animation FabOpen, FabClose, RotateClockwise, RotateAntiClockwise;
+    boolean isOpen = false;
+    boolean editable = false;
     int index = -1;
     ArrayList<Integer> idsOfDataFields = new ArrayList<>();
-    FloatingActionButton create;
+    ArrayList<TextDataView> objects = new ArrayList<>();
+    FloatingActionButton mButton, eButton, dButton;
     Button addViews;
     View inflated;
     HashMap<String, String> objectData = new HashMap<>();
@@ -36,16 +41,65 @@ public class CreateFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         inflated = inflater.inflate(R.layout.fragment_data, container, false);
+        mButton = (FloatingActionButton)inflated.findViewById(R.id.bCreate);
+        eButton = (FloatingActionButton)inflated.findViewById(R.id.bEdit);
+        dButton = (FloatingActionButton)inflated.findViewById(R.id.bDelete);
+        FabOpen = AnimationUtils.loadAnimation(getContext(),R.anim.fab_open);
+        FabClose = AnimationUtils.loadAnimation(getContext(),R.anim.fab_close);
+        RotateClockwise = AnimationUtils.loadAnimation(getContext(),R.anim.rotate_clockwise);
+        RotateAntiClockwise = AnimationUtils.loadAnimation(getContext(),R.anim.rotate_anticlockwise);
 
-        create = inflated.findViewById(R.id.bCreate);
-        create.setOnClickListener(new View.OnClickListener() {
+        //mButton = inflated.findViewById(R.id.bCreate);
+        mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                collectData();
+                if(isOpen) {
+                    dButton.startAnimation(FabClose);
+                    eButton.startAnimation(FabClose);
+                    mButton.startAnimation(RotateAntiClockwise);
+                    dButton.setClickable(false);
+                    eButton.setClickable(false);
+                    isOpen = false;
+                    editable = false;
+
+                    for (int i = 0; i < objects.size(); i++) {
+                        TextDataView cview = (TextDataView) getActivity().findViewById(objects.get(i).getId());
+                        cview.dn.setFocusable(editable);
+                        cview.d.setFocusable(editable);
+                    }
+
+                }
+                else {
+                    dButton.startAnimation(FabOpen);
+                    eButton.startAnimation(FabOpen);
+                    mButton.startAnimation(RotateClockwise);
+                    dButton.setClickable(true);
+                    eButton.setClickable(true);
+                    isOpen = true;
+                    editable = true;
+
+
+                }
+
+                /*collectData();
                 createDataObject();
                 saveDataToMobile();
-                startActivity(new Intent(getActivity(), MainActivity.class));
+                startActivity(new Intent(getActivity(), MainActivity.class));*/
             }
+        });
+
+        eButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // for tsükkel kõigile nuppudele (editable-true)
+                for (int i = 0; i < objects.size(); i++) {
+                    TextDataView cview = (TextDataView) getActivity().findViewById(objects.get(i).getId());
+                    cview.dn.setFocusableInTouchMode(editable);
+                    cview.d.setFocusableInTouchMode(editable);
+                }
+
+            }
+
         });
 
         addViews = inflated.findViewById(R.id.btAddViews);
@@ -91,6 +145,7 @@ public class CreateFragment extends Fragment {
             allObjects = gson.fromJson(hashString, new TypeToken<ArrayList<DataObject>>() {}.getType());
         }
     }
+
 
     protected void collectData(){
 
@@ -151,12 +206,14 @@ public class CreateFragment extends Fragment {
             cview.setData("1000cm");
             cview.setId(View.generateViewId());
             idsOfDataFields.add(cview.getId());
-
+            objects.add(cview);
+            cview.d.setFocusable(editable);
+            cview.dn.setFocusable(editable);
 
             cview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   mySnackbar.setText("Object clicked: " + cview.getId());
+                   mySnackbar.setText("Editable: " + editable);
                    mySnackbar.show();
                 }
             });
@@ -164,16 +221,16 @@ public class CreateFragment extends Fragment {
             cview.d.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mySnackbar.setText("Object data clicked");
-                    mySnackbar.show();
+                   /* mySnackbar.setText("Object data clicked");
+                    mySnackbar.show();*/
                 }
             });
 
             cview.dn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mySnackbar.setText("Object name clicked");
-                    mySnackbar.show();
+                    /*mySnackbar.setText("Object name clicked");
+                    mySnackbar.show();*/
                 }
             });
 

@@ -16,7 +16,7 @@
 
         <LinearLayout
             android:id="@+id/dataLinearLayout"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -49,10 +49,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/data"
                 android:layout_marginStart="@dimen/padding_start_data"
-                android:paddingStart="50dp"
+                android:background="@color/data"
                 android:paddingEnd="20dp"
+                android:paddingStart="50dp"
                 android:text="200cm"
                 android:textSize="30sp" />
 
@@ -66,13 +66,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/data"
+                android:layout_marginBottom="30dp"
                 android:layout_marginStart="@dimen/padding_start_data"
-                android:paddingStart="50dp"
+                android:background="@color/data"
                 android:paddingEnd="20dp"
+                android:paddingStart="50dp"
                 android:text="100cm"
-                android:textSize="30sp"
-                android:layout_marginBottom="30dp"/>
+                android:textSize="30sp" />
 
         </LinearLayout>
     </ScrollView>
@@ -81,7 +81,7 @@
         android:id="@+id/btAddViews"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New"
+        android:text="@string/new_object"
         android:background="@color/data_name"/>
 
 
@@ -90,14 +90,15 @@
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="@dimen/margin_fab_end"
         android:clickable="true"
         android:focusable="true"
         android:layout_gravity="bottom|end"
         android:src="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:fabSize="auto"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:pressedTranslationZ="12dp"/>
 
 
 
