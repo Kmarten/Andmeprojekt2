@@ -8,9 +8,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_start_data"
-            android:background="@null"
             android:text="@string/data_name_blank"
-            android:textSize="14sp"/>
+            android:background="@null"/>
     <!--android:layout_marginTop="30dp"-->
 
         <EditText

@@ -45,8 +45,8 @@ public class TextDataView extends LinearLayout {
     private void init(Context context) {
 
         rootView = inflate(context,R.layout.view_text_data,this);
-        dn = (EditText) rootView.findViewById(R.id.data_name);
-        d = (EditText)rootView.findViewById(R.id.data);
+        dn = rootView.findViewById(R.id.data_name);
+        d = rootView.findViewById(R.id.data);
 
         dn.setId(data_name_id);
         d.setId(data__id);
