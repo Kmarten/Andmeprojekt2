@@ -4,6 +4,10 @@ package com.example.kasutaja.andmeprojekt;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -29,12 +33,13 @@ public class CreateFragment extends Fragment {
     ArrayList<Integer> idsOfDataFields = new ArrayList<>();
     FloatingActionButton create;
     Button addViews;
+    Button btDelete;
     View inflated;
     HashMap<String, String> objectData = new HashMap<>();
     ArrayList<DataObject> allObjects = new ArrayList<>();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         inflated = inflater.inflate(R.layout.fragment_data, container, false);
 
         create = inflated.findViewById(R.id.bCreate);
@@ -47,6 +52,17 @@ public class CreateFragment extends Fragment {
                 startActivity(new Intent(getActivity(), MainActivity.class));
             }
         });
+
+        /*btDelete = findViewById(R.id.bDelete);
+
+        btDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                delete(index);
+                saveDataToMobile();
+                startActivity(new Intent(getActivity(), MainActivity.class));
+            }
+        });*/
 
         addViews = inflated.findViewById(R.id.btAddViews);
         addViews.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +81,12 @@ public class CreateFragment extends Fragment {
 
         retrieveDataFromPhone();
         if(getIndexFromTheIntent()) showCreatedObjectData(allObjects.get(index));
+        DataObject.setId(allObjects.size());
         Toast.makeText(getContext(), "onActivity", Toast.LENGTH_SHORT).show();
+    }
+
+    private void delete(int index){
+        allObjects.remove(index);
     }
 
     private void showCreatedObjectData(DataObject dataObject) {

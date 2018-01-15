@@ -67,4 +67,12 @@ public class DataObject {
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
+
+    public static int getId() {
+        return id;
+    }
+
+    public static void setId(int id) {
+        DataObject.id = id;
+    }
 }

@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,8 +18,8 @@ import com.example.kasutaja.andmeprojekt.R;
 
 public class TextDataView extends LinearLayout {
     View rootView;
-    public TextView dn; //data_name
-    public TextView d; //data
+    public EditText dn; //data_name
+    public EditText d; //data
 
     //private String data_name = "Data_name";
     //private String data = "Data";
@@ -44,8 +45,8 @@ public class TextDataView extends LinearLayout {
     private void init(Context context) {
 
         rootView = inflate(context,R.layout.view_text_data,this);
-        dn = (TextView)rootView.findViewById(R.id.data_name);
-        d = (TextView)rootView.findViewById(R.id.data);
+        dn = rootView.findViewById(R.id.data_name);
+        d = rootView.findViewById(R.id.data);
 
         dn.setId(data_name_id);
         d.setId(data__id);
