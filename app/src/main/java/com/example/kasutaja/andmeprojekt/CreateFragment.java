@@ -8,10 +8,15 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatCallback;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.view.ActionMode;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -23,23 +28,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class CreateFragment extends Fragment {
+public class CreateFragment extends Fragment implements AppCompatCallback {
     boolean isOpen = false;
     boolean editable = false;
     int index = -1;
     ArrayList<Integer> idsOfDataFields = new ArrayList<>();
     ArrayList<TextDataView> objects = new ArrayList<>();
-    FloatingActionButton mButton, eButton, dButton;
+    FloatingActionButton mButton;
     Button addViews, btDelete;
+    ImageView btDone, btEdit;
     View inflated;
     HashMap<String, String> objectData = new HashMap<>();
     ArrayList<DataObject> allObjects = new ArrayList<>();
-    //Toolbar toolbar;
+    Toolbar toolbar;
+    AppCompatDelegate delegate;
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         inflated = inflater.inflate(R.layout.fragment_data, container, false);
-        //toolbar = inflated.findViewById(this);
-
+        toolbar = inflated.findViewById(R.id.toolbar);
+        btDone = inflated.findViewById(R.id.done);
+        btEdit = inflated.findViewById(R.id.edit);
         mButton = inflated.findViewById(R.id.bCreate);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,8 +60,33 @@ public class CreateFragment extends Fragment {
                 startActivity(new Intent(getActivity(), MainActivity.class));*/
             }
         });
-
-       /* btDelete = inflated.findViewById(R.id.del_bt);
+        btEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editable = true;
+                btDone.setVisibility(View.VISIBLE);
+                for (int i = 0; i < objects.size(); i++) {
+                    TextDataView cview = (TextDataView) getActivity().findViewById(objects.get(i).getId());
+                    cview.dn.setFocusableInTouchMode(editable);
+                    cview.d.setFocusableInTouchMode(editable);
+                    cview.x.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        btDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editable = false;
+                for (int i = 0; i < objects.size(); i++) {
+                    TextDataView cview = (TextDataView) getActivity().findViewById(objects.get(i).getId());
+                    cview.dn.setFocusable(editable);
+                    cview.d.setFocusable(editable);
+                    cview.x.setVisibility(View.INVISIBLE);
+                }
+                btDone.setVisibility(View.INVISIBLE);
+            }
+        });
+        /*btDelete = inflated.findViewById(R.id.del_bt);
 
         btDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,8 +97,8 @@ public class CreateFragment extends Fragment {
                     startActivity(new Intent(getActivity(), MainActivity.class));
                 }
             }
-        });*/
-
+        });
+*/
         addViews = inflated.findViewById(R.id.btAddViews);
         addViews.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +110,17 @@ public class CreateFragment extends Fragment {
         return inflated;
     }
 
+    @Override
+    public ActionMode onWindowStartingSupportActionMode(ActionMode.Callback callback) {
+        return null;
+    }
+    @Override
+    public void onSupportActionModeStarted(ActionMode mode) {
+    }
+
+    @Override
+    public void onSupportActionModeFinished(ActionMode mode) {
+    }
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -174,6 +218,7 @@ public class CreateFragment extends Fragment {
             cview.setDataName("Raadius");
             cview.setData("1000cm");
             cview.setId(View.generateViewId());
+            if(editable) cview.x.setVisibility(View.VISIBLE);
             idsOfDataFields.add(cview.getId());
             objects.add(cview);
             cview.d.setFocusable(editable);
