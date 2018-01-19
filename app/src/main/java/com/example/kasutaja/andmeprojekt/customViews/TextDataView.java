@@ -7,7 +7,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,15 +19,13 @@ import com.example.kasutaja.andmeprojekt.R;
 
 public class TextDataView extends LinearLayout {
     View rootView;
-    public EditText dn; //data_name
-    public EditText d; //data
-    public Button x;
-    //private String data_name = "Data_name";
-    //private String data = "Data";
+    public EditText fieldTitle; //data_name
+    public EditText fieldData; //data
+    public Button btRemoveField;
 
-    private int data_name_id = View.generateViewId();
-    private int data__id = View.generateViewId();
-    private int data_x = View.generateViewId();
+    private int fieldTitleID = View.generateViewId();
+    private int fieldDataID = View.generateViewId();
+    private int btRemoveFieldID = View.generateViewId();
 
     public TextDataView(Context context) {
         super(context);
@@ -45,37 +42,41 @@ public class TextDataView extends LinearLayout {
         init(context);
     }
 
+    public View getView(){
+        return this;
+    }
+
     private void init(Context context) {
 
         rootView = inflate(context,R.layout.view_text_data,this);
-        dn = rootView.findViewById(R.id.data_name);
-        d = rootView.findViewById(R.id.data);
-        x = rootView.findViewById(R.id.del_bt);
+        fieldTitle = rootView.findViewById(R.id.data_name);
+        fieldData = rootView.findViewById(R.id.data);
+        btRemoveField = rootView.findViewById(R.id.del_bt);
 
-        dn.setId(data_name_id);
-        d.setId(data__id);
-        x.setId(data_x);
+        fieldTitle.setId(fieldTitleID);
+        fieldData.setId(fieldDataID);
+        btRemoveField.setId(btRemoveFieldID);
     }
 
     public void setDataName(String name) {
-        dn.setText(name);
+        fieldTitle.setText(name);
         invalidate();
         requestLayout();
     }
 
     public void setData(String data) {
-        d.setText(data);
+        fieldData.setText(data);
         invalidate();
         requestLayout();
 
     }
 
-    public TextView getDn() {
-        return dn;
+    public TextView getFieldTitle() {
+        return fieldTitle;
     }
 
-    public TextView getD() {
-        return d;
+    public TextView getFieldData() {
+        return fieldData;
     }
 
 
