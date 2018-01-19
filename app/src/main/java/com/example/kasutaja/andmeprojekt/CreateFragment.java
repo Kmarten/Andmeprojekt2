@@ -4,10 +4,6 @@ package com.example.kasutaja.andmeprojekt;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,8 +11,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -30,61 +24,27 @@ import java.util.HashMap;
 
 
 public class CreateFragment extends Fragment {
-    Animation FabOpen, FabClose, RotateClockwise, RotateAntiClockwise;
     boolean isOpen = false;
     boolean editable = false;
     int index = -1;
     ArrayList<Integer> idsOfDataFields = new ArrayList<>();
     ArrayList<TextDataView> objects = new ArrayList<>();
     FloatingActionButton mButton, eButton, dButton;
-    Button addViews;
-    Button btDelete;
+    Button addViews, btDelete;
     View inflated;
     HashMap<String, String> objectData = new HashMap<>();
     ArrayList<DataObject> allObjects = new ArrayList<>();
-
+    //Toolbar toolbar;
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         inflated = inflater.inflate(R.layout.fragment_data, container, false);
-        mButton = (FloatingActionButton)inflated.findViewById(R.id.bCreate);
-        eButton = (FloatingActionButton)inflated.findViewById(R.id.bEdit);
-        dButton = (FloatingActionButton)inflated.findViewById(R.id.bDelete);
-        FabOpen = AnimationUtils.loadAnimation(getContext(),R.anim.fab_open);
-        FabClose = AnimationUtils.loadAnimation(getContext(),R.anim.fab_close);
-        RotateClockwise = AnimationUtils.loadAnimation(getContext(),R.anim.rotate_clockwise);
-        RotateAntiClockwise = AnimationUtils.loadAnimation(getContext(),R.anim.rotate_anticlockwise);
+        //toolbar = inflated.findViewById(this);
 
-        //mButton = inflated.findViewById(R.id.bCreate);
+        mButton = inflated.findViewById(R.id.bCreate);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isOpen) {
-                    dButton.startAnimation(FabClose);
-                    eButton.startAnimation(FabClose);
-                    mButton.startAnimation(RotateAntiClockwise);
-                    dButton.setClickable(false);
-                    eButton.setClickable(false);
-                    isOpen = false;
-                    editable = false;
-
-                    for (int i = 0; i < objects.size(); i++) {
-                        TextDataView cview = (TextDataView) getActivity().findViewById(objects.get(i).getId());
-                        cview.dn.setFocusable(editable);
-                        cview.d.setFocusable(editable);
-                    }
-
-                }
-                else {
-                    dButton.startAnimation(FabOpen);
-                    eButton.startAnimation(FabOpen);
-                    mButton.startAnimation(RotateClockwise);
-                    dButton.setClickable(true);
-                    eButton.setClickable(true);
-                    isOpen = true;
-                    editable = true;
-
-
-                }
+                addField();
 
                 /*collectData();
                 createDataObject();
@@ -93,28 +53,16 @@ public class CreateFragment extends Fragment {
             }
         });
 
-        eButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // for tsükkel kõigile nuppudele (editable-true)
-                for (int i = 0; i < objects.size(); i++) {
-                    TextDataView cview = (TextDataView) getActivity().findViewById(objects.get(i).getId());
-                    cview.dn.setFocusableInTouchMode(editable);
-                    cview.d.setFocusableInTouchMode(editable);
-                }
-
-            }
-
-        });
-
-        /*btDelete = findViewById(R.id.bDelete);
+       /* btDelete = inflated.findViewById(R.id.del_bt);
 
         btDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                delete(index);
-                saveDataToMobile();
-                startActivity(new Intent(getActivity(), MainActivity.class));
+                if(editable) {
+                    delete(index);
+                    saveDataToMobile();
+                    startActivity(new Intent(getActivity(), MainActivity.class));
+                }
             }
         });*/
 
@@ -122,7 +70,7 @@ public class CreateFragment extends Fragment {
         addViews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addField();
+
             }
         });
 
@@ -254,6 +202,7 @@ public class CreateFragment extends Fragment {
                     mySnackbar.show();*/
                 }
             });
+
 
             ll.addView(cview);
             /*mySnackbar.setText("Data object created");
