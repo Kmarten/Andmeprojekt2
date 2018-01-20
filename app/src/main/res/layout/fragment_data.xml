@@ -54,41 +54,6 @@
                 android:gravity="center"
                 android:src="@drawable/laud" />
 
-
-           <!-- <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/padding_start_data"
-                android:text="Pikkus" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/padding_start_data"
-                android:background="@color/data"
-                android:paddingEnd="20dp"
-                android:paddingStart="50dp"
-                android:text="200cm"
-                android:textSize="30sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/padding_start_data"
-                android:layout_marginTop="30dp"
-                android:text="Laius" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
-                android:layout_marginStart="@dimen/padding_start_data"
-                android:background="@color/data"
-                android:paddingEnd="20dp"
-                android:paddingStart="50dp"
-                android:text="100cm"
-                android:textSize="30sp" />
--->
         </LinearLayout>
     </ScrollView>
 

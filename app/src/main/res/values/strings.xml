@@ -9,6 +9,8 @@
     <string name="data_name_blank">Data name</string>
     <string name="data_blank">Data</string>
     <string name="save_object">Save</string>
+    <string name="enter_name_hint">Name</string>
+    <string name="enter_data_hint">Value</string>
 
 
 </resources>

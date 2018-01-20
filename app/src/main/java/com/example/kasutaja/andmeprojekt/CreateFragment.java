@@ -9,7 +9,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatCallback;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -31,19 +30,17 @@ import java.util.Set;
 
 
 public class CreateFragment extends Fragment implements AppCompatCallback {
-    boolean isOpen = false;
     boolean editable = false;
     int index = -1;
     ArrayList<Integer> idsOfDataFields = new ArrayList<>();
-    ArrayList<TextDataView> objects = new ArrayList<>();
+    ArrayList<TextDataView> objects = new ArrayList<>(); //Workaround-vaja üle minna muule
     FloatingActionButton mButton;
-    Button btDelete, btSave;
+    Button btSave;
     ImageView btDone, btEdit;
     View inflated;
     HashMap<String, String> objectData = new HashMap<>();
     ArrayList<DataObject> allObjects = new ArrayList<>();
     Toolbar toolbar;
-    AppCompatDelegate delegate;
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         inflated = inflater.inflate(R.layout.fragment_data, container, false);
@@ -89,9 +86,9 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
                 editable = false;
                 for (int i = 0; i < objects.size(); i++) {
                     TextDataView cview = (TextDataView) getActivity().findViewById(objects.get(i).getId());
-                    cview.fieldTitle.setFocusable(editable);
-                    cview.fieldData.setFocusable(editable);
-                    cview.btRemoveField.setVisibility(View.INVISIBLE);
+                        if (cview.fieldTitle != null) cview.fieldTitle.setFocusable(editable);
+                        if (cview.fieldData != null) cview.fieldData.setFocusable(editable);
+                        if (cview.btRemoveField != null) cview.btRemoveField.setVisibility(View.INVISIBLE);
                 }
                 btDone.setVisibility(View.INVISIBLE);
             }
@@ -204,23 +201,6 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             ));
-            /*//Debugging
-            ShapeDrawable sd = new ShapeDrawable();
-
-            // Specify the shape of ShapeDrawable
-            sd.setShape(new RectShape());
-
-            // Specify the border color of shape
-            sd.getPaint().setColor(Color.RED);
-
-            // Set the border width
-            sd.getPaint().setStrokeWidth(10f);
-
-            // Specify the style is a Stroke
-            sd.getPaint().setStyle(Paint.Style.STROKE);
-
-            // Finally, add the drawable background to TextView
-            cview.setBackground(sd);*/
 
             if(title != null){
                 cview.setDataName(title);
@@ -239,24 +219,19 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
             cview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   mySnackbar.setText("Editable: " + editable);
-                   mySnackbar.show();
                 }
             });
 
             cview.fieldData.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   /* mySnackbar.setText("Object data clicked");
-                    mySnackbar.show();*/
+
                 }
             });
 
             cview.fieldTitle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    /*mySnackbar.setText("Object name clicked");
-                    mySnackbar.show();*/
                 }
             });
 
@@ -264,14 +239,13 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
                 @Override
                 public void onClick(View view) {
                     Log.e("TAG", "oCLIK");
+                    idsOfDataFields.remove(idsOfDataFields.get(idsOfDataFields.lastIndexOf(cview.getId())));
+                    objects.remove(cview);
                     ll.removeView(cview);
+
                 }
             });
-
-
             ll.addView(cview);
-            /*mySnackbar.setText("Data object created");
-            mySnackbar.show();*/
 
     }
 }
