@@ -15,7 +15,7 @@ public class DataObject {
     private static int id; //Objects counter
     private int objectId;
     private String name;
-    private HashMap data;
+    private HashMap<String, String> data;
     private Image img;
 
     private Date creationDate;

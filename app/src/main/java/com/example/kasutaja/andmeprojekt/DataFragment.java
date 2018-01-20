@@ -35,7 +35,7 @@ public class DataFragment extends Fragment {
             public void onClick(View view) {
                 Snackbar mySnackbar = Snackbar.make(getView(), "mButton", Snackbar.LENGTH_SHORT);
                 mySnackbar.show();
-                Log.d("mButton","mButton clicked");
+                Log.fieldData("mButton","mButton clicked");
                 if(isOpen) {
                     dButton.startAnimation(FabClose);
                     eButton.startAnimation(FabClose);
