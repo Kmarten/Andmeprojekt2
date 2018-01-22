@@ -2,12 +2,14 @@ package com.example.kasutaja.andmeprojekt;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatCallback;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -38,6 +41,7 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
     Button btSave;
     ImageView btDone, btEdit;
     View inflated;
+    View dataObjectEnterFields;
     HashMap<String, String> objectData = new HashMap<>();
     ArrayList<DataObject> allObjects = new ArrayList<>();
     Toolbar toolbar;
@@ -64,7 +68,7 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addField(null, null);
+                getFields();
             }
         });
         btEdit.setOnClickListener(new View.OnClickListener() {
@@ -193,10 +197,35 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
         editor.putString("HashString", objectDataString).apply();
     }
 
-    protected void addField(String title, String data){
-            final Snackbar mySnackbar = Snackbar.make(getView(), "Data object created", Snackbar.LENGTH_SHORT);
+    protected void getFields(){
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dataobject_enter_fields,null);
+        final EditText enterName = dialogView.findViewById(R.id.enter_data_name);
+        final EditText enterData = dialogView.findViewById(R.id.enter_data);
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.setTitle("Fields");
+        dialogBuilder.setMessage("Enter data below:");
+        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                if(enterName.getText().toString().trim().length() != 0 && enterData.getText().toString().trim().length() != 0 ) addField(enterName.getText().toString(),enterData.getText().toString());
+                }
+        });
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+            }
+        });
+        AlertDialog b = dialogBuilder.create();
+        b.show();
+
+
+    }
+    protected void addField(final String title, String data){
             final LinearLayout ll = getView().findViewById(R.id.dataLinearLayout);
             final TextDataView cview = new TextDataView(getContext());
+
             cview.setLayoutParams(new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
@@ -206,8 +235,8 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
                 cview.setDataName(title);
                 cview.setData(data);
             }else {
-                cview.setDataName("Raadius");
-                cview.setData("1000cm");
+                cview.setDataName("Default name");
+                cview.setData("Default data");
             }
             cview.setId(View.generateViewId());
             if(editable) cview.btRemoveField.setVisibility(View.VISIBLE);
