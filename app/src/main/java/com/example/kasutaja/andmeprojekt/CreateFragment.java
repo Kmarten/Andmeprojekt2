@@ -9,9 +9,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatCallback;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,38 +26,45 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 
 public class CreateFragment extends Fragment implements AppCompatCallback {
-    boolean isOpen = false;
     boolean editable = false;
     int index = -1;
     ArrayList<Integer> idsOfDataFields = new ArrayList<>();
-    ArrayList<TextDataView> objects = new ArrayList<>();
+    ArrayList<TextDataView> objects = new ArrayList<>(); //Workaround-vaja üle minna muule
     FloatingActionButton mButton;
-    Button addViews, btDelete;
+    Button btSave;
     ImageView btDone, btEdit;
     View inflated;
     HashMap<String, String> objectData = new HashMap<>();
     ArrayList<DataObject> allObjects = new ArrayList<>();
     Toolbar toolbar;
-    AppCompatDelegate delegate;
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         inflated = inflater.inflate(R.layout.fragment_data, container, false);
         toolbar = inflated.findViewById(R.id.toolbar);
         btDone = inflated.findViewById(R.id.done);
         btEdit = inflated.findViewById(R.id.edit);
+
+        btSave = inflated.findViewById(R.id.btSaveObject);
+
+        btSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                collectData();
+                createDataObject();
+                saveDataToMobile();
+                startActivity(new Intent(getActivity(), MainActivity.class));
+            }
+        });
+
         mButton = inflated.findViewById(R.id.bCreate);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addField();
-
-                /*collectData();
-                createDataObject();
-                saveDataToMobile();
-                startActivity(new Intent(getActivity(), MainActivity.class));*/
+                addField(null, null);
             }
         });
         btEdit.setOnClickListener(new View.OnClickListener() {
@@ -66,10 +73,10 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
                 editable = true;
                 btDone.setVisibility(View.VISIBLE);
                 for (int i = 0; i < objects.size(); i++) {
-                    TextDataView cview = (TextDataView) getActivity().findViewById(objects.get(i).getId());
-                    cview.dn.setFocusableInTouchMode(editable);
-                    cview.d.setFocusableInTouchMode(editable);
-                    cview.x.setVisibility(View.VISIBLE);
+                    TextDataView cview = getActivity().findViewById(objects.get(i).getId());
+                    cview.fieldTitle.setFocusableInTouchMode(editable);
+                    cview.fieldData.setFocusableInTouchMode(editable);
+                    cview.btRemoveField.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -79,16 +86,16 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
                 editable = false;
                 for (int i = 0; i < objects.size(); i++) {
                     TextDataView cview = (TextDataView) getActivity().findViewById(objects.get(i).getId());
-                    cview.dn.setFocusable(editable);
-                    cview.d.setFocusable(editable);
-                    cview.x.setVisibility(View.INVISIBLE);
+                        if (cview.fieldTitle != null) cview.fieldTitle.setFocusable(editable);
+                        if (cview.fieldData != null) cview.fieldData.setFocusable(editable);
+                        if (cview.btRemoveField != null) cview.btRemoveField.setVisibility(View.INVISIBLE);
                 }
                 btDone.setVisibility(View.INVISIBLE);
             }
         });
-        /*btDelete = inflated.findViewById(R.id.del_bt);
 
-        btDelete.setOnClickListener(new View.OnClickListener() {
+        //Läheb vaja seda
+        /*btDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(editable) {
@@ -99,13 +106,6 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
             }
         });
 */
-        addViews = inflated.findViewById(R.id.btAddViews);
-        addViews.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         return inflated;
     }
@@ -136,9 +136,12 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
     }
 
     private void showCreatedObjectData(DataObject dataObject) {
-        for(int i = 0; i<dataObject.getData().size(); i++){
-            addField();
+        HashMap<String, String> objectHashMap= dataObject.getData();
+        Set<String> keys = objectHashMap.keySet();
+        for(String key : keys){
+            addField(key, objectHashMap.get(key));
         }
+
     }
 
     private boolean getIndexFromTheIntent() {
@@ -164,10 +167,11 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
 
         for(int  i = 0; i<idsOfDataFields.size(); i++){
             TextDataView collectedView = getView().findViewById(idsOfDataFields.get(i));
-            String collectedData = collectedView.getD().getText().toString();
-            String collectedDataName = collectedView.getDn().getText().toString();
+            String collectedData = collectedView.getFieldData().getText().toString();
+            String collectedDataName = collectedView.getFieldTitle().getText().toString();
             objectData.put(collectedDataName, collectedData);
         }
+        Log.e("List", objectData.toString());
     }
 
 
@@ -189,69 +193,59 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
         editor.putString("HashString", objectDataString).apply();
     }
 
-    protected void addField(){
+    protected void addField(String title, String data){
             final Snackbar mySnackbar = Snackbar.make(getView(), "Data object created", Snackbar.LENGTH_SHORT);
-            LinearLayout ll = getView().findViewById(R.id.dataLinearLayout);
+            final LinearLayout ll = getView().findViewById(R.id.dataLinearLayout);
             final TextDataView cview = new TextDataView(getContext());
             cview.setLayoutParams(new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             ));
-            /*//Debugging
-            ShapeDrawable sd = new ShapeDrawable();
 
-            // Specify the shape of ShapeDrawable
-            sd.setShape(new RectShape());
-
-            // Specify the border color of shape
-            sd.getPaint().setColor(Color.RED);
-
-            // Set the border width
-            sd.getPaint().setStrokeWidth(10f);
-
-            // Specify the style is a Stroke
-            sd.getPaint().setStyle(Paint.Style.STROKE);
-
-            // Finally, add the drawable background to TextView
-            cview.setBackground(sd);*/
-
-            cview.setDataName("Raadius");
-            cview.setData("1000cm");
+            if(title != null){
+                cview.setDataName(title);
+                cview.setData(data);
+            }else {
+                cview.setDataName("Raadius");
+                cview.setData("1000cm");
+            }
             cview.setId(View.generateViewId());
-            if(editable) cview.x.setVisibility(View.VISIBLE);
+            if(editable) cview.btRemoveField.setVisibility(View.VISIBLE);
             idsOfDataFields.add(cview.getId());
             objects.add(cview);
-            cview.d.setFocusable(editable);
-            cview.dn.setFocusable(editable);
+            cview.fieldData.setFocusable(editable);
+            cview.fieldTitle.setFocusable(editable);
 
             cview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   mySnackbar.setText("Editable: " + editable);
-                   mySnackbar.show();
                 }
             });
 
-            cview.d.setOnClickListener(new View.OnClickListener() {
+            cview.fieldData.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   /* mySnackbar.setText("Object data clicked");
-                    mySnackbar.show();*/
+
                 }
             });
 
-            cview.dn.setOnClickListener(new View.OnClickListener() {
+            cview.fieldTitle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    /*mySnackbar.setText("Object name clicked");
-                    mySnackbar.show();*/
                 }
             });
 
+            cview.btRemoveField.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.e("TAG", "oCLIK");
+                    idsOfDataFields.remove(idsOfDataFields.get(idsOfDataFields.lastIndexOf(cview.getId())));
+                    objects.remove(cview);
+                    ll.removeView(cview);
 
+                }
+            });
             ll.addView(cview);
-            /*mySnackbar.setText("Data object created");
-            mySnackbar.show();*/
 
     }
 }
