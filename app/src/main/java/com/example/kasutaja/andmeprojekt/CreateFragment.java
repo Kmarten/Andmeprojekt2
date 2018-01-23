@@ -2,6 +2,7 @@ package com.example.kasutaja.andmeprojekt;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -40,6 +41,7 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
     Button btSave;
     ImageView btDone, btEdit;
     View inflated;
+    View dataObjectEnterFields;
     HashMap<String, String> objectData = new HashMap<>();
     ArrayList<DataObject> allObjects = new ArrayList<>();
     Toolbar toolbar;
@@ -66,7 +68,7 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addField(null, null);
+                getFields();
             }
         });
         btEdit.setOnClickListener(new View.OnClickListener() {
@@ -195,18 +197,35 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
         editor.putString("HashString", objectDataString).apply();
     }
 
-    protected void addField(String title, String data){
+    protected void getFields(){
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dataobject_enter_fields,null);
+        final EditText enterName = dialogView.findViewById(R.id.enter_data_name);
+        final EditText enterData = dialogView.findViewById(R.id.enter_data);
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.setTitle("Fields");
+        dialogBuilder.setMessage("Enter data below:");
+        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                if(enterName.getText().toString().trim().length() != 0 && enterData.getText().toString().trim().length() != 0 ) addField(enterName.getText().toString(),enterData.getText().toString());
+                }
+        });
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+            }
+        });
+        AlertDialog b = dialogBuilder.create();
+        b.show();
+
+
+    }
+    protected void addField(final String title, String data){
             final LinearLayout ll = getView().findViewById(R.id.dataLinearLayout);
             final TextDataView cview = new TextDataView(getContext());
-            View enterFields = inflated.findViewById(R.id.dataobject_fields);
-            final EditText enterDataName = enterFields.findViewById(R.id.enter_data_name);
-            final EditText enterData = enterFields.findViewById(R.id.enter_data);
 
-            AlertDialog.Builder enter = new AlertDialog.Builder(getContext());
-            enter.setTitle("Fields");
-            enter.setView(enterFields);
-            AlertDialog dialog = enter.create();
-            dialog.show();
             cview.setLayoutParams(new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
@@ -216,8 +235,8 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
                 cview.setDataName(title);
                 cview.setData(data);
             }else {
-                cview.setDataName("Raadius");
-                cview.setData("1000cm");
+                cview.setDataName("Default name");
+                cview.setData("Default data");
             }
             cview.setId(View.generateViewId());
             if(editable) cview.btRemoveField.setVisibility(View.VISIBLE);
