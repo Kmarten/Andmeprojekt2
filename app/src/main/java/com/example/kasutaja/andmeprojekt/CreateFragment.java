@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatCallback;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -194,9 +196,17 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
     }
 
     protected void addField(String title, String data){
-            final Snackbar mySnackbar = Snackbar.make(getView(), "Data object created", Snackbar.LENGTH_SHORT);
             final LinearLayout ll = getView().findViewById(R.id.dataLinearLayout);
             final TextDataView cview = new TextDataView(getContext());
+            View enterFields = inflated.findViewById(R.id.dataobject_fields);
+            final EditText enterDataName = enterFields.findViewById(R.id.enter_data_name);
+            final EditText enterData = enterFields.findViewById(R.id.enter_data);
+
+            AlertDialog.Builder enter = new AlertDialog.Builder(getContext());
+            enter.setTitle("Fields");
+            enter.setView(enterFields);
+            AlertDialog dialog = enter.create();
+            dialog.show();
             cview.setLayoutParams(new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
