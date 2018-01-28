@@ -1,14 +1,25 @@
 package com.example.kasutaja.andmeprojekt;
 
 
+import android.*;
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatCallback;
 import android.support.v7.view.ActionMode;
@@ -27,6 +38,8 @@ import com.example.kasutaja.andmeprojekt.customViews.TextDataView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -39,12 +52,13 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
     ArrayList<TextDataView> objects = new ArrayList<>(); //Workaround-vaja üle minna muule
     FloatingActionButton mButton;
     Button btSave;
-    ImageView btDone, btEdit;
+    ImageView btDone, btEdit, ivObjectImage;
     View inflated;
     View dataObjectEnterFields;
     HashMap<String, String> objectData = new HashMap<>();
     ArrayList<DataObject> allObjects = new ArrayList<>();
     Toolbar toolbar;
+    Integer SELECT_FILE = 0;
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         inflated = inflater.inflate(R.layout.fragment_data, container, false);
@@ -98,6 +112,22 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
             }
         });
 
+        ivObjectImage = inflated.findViewById(R.id.ObjectImg);
+
+        ivObjectImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(ContextCompat.checkSelfPermission(getActivity(),
+                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                }else {
+                    selectImage();
+                }
+            }
+        });
+
+
         //Läheb vaja seda
         /*btDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +142,48 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
 */
 
         return inflated;
+    }
+
+
+    private void selectImage() {
+        final CharSequence[] items = {"Gallery", "Cancel"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Choose image");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(items[i].equals("Gallery")){
+                    Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                    photoPickerIntent.setType("image/*");
+                    startActivityForResult(photoPickerIntent, SELECT_FILE);
+                }
+                if(items[i].equals("Cancle")){
+                    dialogInterface.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == Activity.RESULT_OK){
+
+            if(requestCode == SELECT_FILE){
+                try {
+                    Log.e("Image", data.getData().toString());
+                    InputStream imageStream = getActivity().getContentResolver().openInputStream(data.getData());
+                    Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                    Log.e("Error", "TRyCATCFHBLOCK");
+                    ivObjectImage.setImageBitmap(selectedImage);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override
