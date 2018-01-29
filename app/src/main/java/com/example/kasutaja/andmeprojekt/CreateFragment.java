@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -59,6 +60,7 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
     ArrayList<DataObject> allObjects = new ArrayList<>();
     Toolbar toolbar;
     Integer SELECT_FILE = 0;
+    Uri imageUri;
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         inflated = inflater.inflate(R.layout.fragment_data, container, false);
@@ -174,10 +176,9 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
 
             if(requestCode == SELECT_FILE){
                 try {
-                    Log.e("Image", data.getData().toString());
-                    InputStream imageStream = getActivity().getContentResolver().openInputStream(data.getData());
+                    imageUri = data.getData();
+                    InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
                     Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                    Log.e("Error", "TRyCATCFHBLOCK");
                     ivObjectImage.setImageBitmap(selectedImage);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -217,6 +218,14 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
         for(String key : keys){
             addField(key, objectHashMap.get(key));
         }
+        InputStream imageStream = null;
+        try {
+            imageStream = getActivity().getContentResolver().openInputStream(Uri.parse(dataObject.getImg()));
+            Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+            ivObjectImage.setImageBitmap(selectedImage);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -254,8 +263,10 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
     private void createDataObject() {
         if(index != -1){
             allObjects.get(index).setData(objectData);
+            allObjects.get(index).setImg(imageUri.toString());
+            allObjects.get(index).setName("Laud");
         }else {
-            DataObject newObject = new DataObject("Laud", objectData);
+            DataObject newObject = new DataObject("Laud", objectData, imageUri.toString());
             allObjects.add(newObject);
         }
     }

@@ -1,6 +1,8 @@
 package com.example.kasutaja.andmeprojekt;
 
+import android.graphics.Bitmap;
 import android.media.Image;
+import android.net.Uri;
 import android.util.Log;
 
 import java.util.Date;
@@ -16,14 +18,15 @@ public class DataObject {
     private int objectId;
     private String name;
     private HashMap<String, String> data;
-    private Image img;
+    private String img;
 
     private Date creationDate;
 
-    DataObject(String name, HashMap data){
+    DataObject(String name, HashMap data, String img){
         this.name = name;
         this.data = data;
         objectId = id;
+        this.img = img;
         Log.e("ObjectID", "value: " + String.valueOf(objectId));
         id++;
     }
@@ -52,11 +55,11 @@ public class DataObject {
         this.data = data;
     }
 
-    public Image getImg() {
+    public String getImg() {
         return img;
     }
 
-    public void setImg(Image img) {
+    public void setImg(String img) {
         this.img = img;
     }
 
