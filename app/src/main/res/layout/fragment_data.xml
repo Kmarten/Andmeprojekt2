@@ -35,13 +35,16 @@
             android:orientation="vertical">
 
             <!--Placeholders-->
-            <TextView
+            <EditText
+                android:id="@+id/ObjectName"
                 android:layout_marginTop="48dp"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Laud"
+                android:text="Object name"
+                android:focusable="false"
+                android:background="@null"
                 android:textSize="30sp" />
 
             <ImageView
@@ -49,7 +52,6 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
-
                 android:contentDescription="@string/ObjectImg"
                 android:gravity="center"
                 android:src="@drawable/laud" />

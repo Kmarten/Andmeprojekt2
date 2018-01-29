@@ -1,7 +1,6 @@
 package com.example.kasutaja.andmeprojekt;
 
 
-import android.*;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -11,13 +10,9 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -54,8 +49,8 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
     FloatingActionButton mButton;
     Button btSave;
     ImageView btDone, btEdit, ivObjectImage;
+    EditText objectName;
     View inflated;
-    View dataObjectEnterFields;
     HashMap<String, String> objectData = new HashMap<>();
     ArrayList<DataObject> allObjects = new ArrayList<>();
     Toolbar toolbar;
@@ -67,8 +62,9 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
         toolbar = inflated.findViewById(R.id.toolbar);
         btDone = inflated.findViewById(R.id.done);
         btEdit = inflated.findViewById(R.id.edit);
-
+        objectName = inflated.findViewById(R.id.ObjectName);
         btSave = inflated.findViewById(R.id.btSaveObject);
+        ivObjectImage = inflated.findViewById(R.id.ObjectImg);
 
         btSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +87,7 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
             @Override
             public void onClick(View view) {
                 editable = true;
+                objectName.setFocusableInTouchMode(true);
                 btDone.setVisibility(View.VISIBLE);
                 for (int i = 0; i < objects.size(); i++) {
                     TextDataView cview = getActivity().findViewById(objects.get(i).getId());
@@ -104,6 +101,7 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
             @Override
             public void onClick(View view) {
                 editable = false;
+                objectName.setFocusable(false);
                 for (int i = 0; i < objects.size(); i++) {
                     TextDataView cview = (TextDataView) getActivity().findViewById(objects.get(i).getId());
                         if (cview.fieldTitle != null) cview.fieldTitle.setFocusable(editable);
@@ -114,17 +112,19 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
             }
         });
 
-        ivObjectImage = inflated.findViewById(R.id.ObjectImg);
+
 
         ivObjectImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(ContextCompat.checkSelfPermission(getActivity(),
-                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-                }else {
-                    selectImage();
+                if(editable) {
+                    if (ContextCompat.checkSelfPermission(getActivity(),
+                            Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(getActivity(),
+                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                    } else {
+                        selectImage();
+                    }
                 }
             }
         });
