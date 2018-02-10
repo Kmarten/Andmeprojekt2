@@ -263,11 +263,14 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
     private void createDataObject() {
         if(index != -1){
             allObjects.get(index).setData(objectData);
-            allObjects.get(index).setImg(imageUri.toString());
+            if(imageUri != null) allObjects.get(index).setImg(imageUri.toString());
             allObjects.get(index).setName("Laud");
         }else {
-            DataObject newObject = new DataObject("Laud", objectData, imageUri.toString());
-            allObjects.add(newObject);
+            if(imageUri != null) {
+                DataObject newObject = new DataObject("Laud", objectData, imageUri.toString());
+                allObjects.add(newObject);
+            }
+
         }
     }
 

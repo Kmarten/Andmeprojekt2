@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.kasutaja.andmeprojekt.customViews.MainListObject;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -35,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        TextView Tarv = findViewById(R.id.textView);
+        //TextView Tarv = findViewById(R.id.textView);
 
-        Tarv.setText(String.valueOf(arv));
+        //Tarv.setText(String.valueOf(arv));
 
         FloatingActionButton fb = findViewById(R.id.dataFloatingActionButton);
 
@@ -62,22 +63,21 @@ public class MainActivity extends AppCompatActivity {
 
     protected void addField(DataObject dataObject) {
         LinearLayout ll = findViewById(R.id.llMainActivity);
-        Button menuObjectBt = new Button(getApplicationContext());
-        menuObjectBt .setLayoutParams(new LinearLayout.LayoutParams(
+        MainListObject menuObject = new MainListObject(getApplicationContext());
+        menuObject.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         ));
 
-        menuObjectBt.setId(dataObject.getObjectId());
-        menuObjectBt.setText(dataObject.getName() + String.valueOf(dataObject.getObjectId()));
-        menuObjectBt.setOnClickListener(new View.OnClickListener() {
+        menuObject.setId(dataObject.getObjectId());
+        menuObject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, CreateData.class).putExtra("ObjectId", view.getId()));
             }
         });
 
-        ll.addView(menuObjectBt);
+        ll.addView(menuObject);
     }
 
 }

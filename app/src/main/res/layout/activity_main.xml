@@ -7,33 +7,30 @@
     tools:context="com.example.kasutaja.andmeprojekt.MainActivity">
 
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/llMainActivity">
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/dataFloatingActionButton"
         android:layout_width="56dp"
         android:layout_height="56dp"
+        android:layout_gravity="bottom|end"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:clickable="true"
         android:focusable="true"
-        android:layout_gravity="bottom|end"
         android:src="@android:drawable/ic_input_add"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:fabSize="auto"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0"
-        tools:layout_editor_absoluteX="144dp"
-        tools:layout_editor_absoluteY="164dp" />
+    <LinearLayout
+        android:id="@+id/llMainActivity"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
