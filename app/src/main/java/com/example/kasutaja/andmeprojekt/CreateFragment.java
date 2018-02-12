@@ -56,6 +56,7 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
     Toolbar toolbar;
     Integer SELECT_FILE = 0;
     Uri imageUri;
+    String name;
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         inflated = inflater.inflate(R.layout.fragment_data, container, false);
@@ -250,6 +251,8 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
 
     protected void collectData(){
 
+        name = objectName.getText().toString();
+
         for(int  i = 0; i<idsOfDataFields.size(); i++){
             TextDataView collectedView = getView().findViewById(idsOfDataFields.get(i));
             String collectedData = collectedView.getFieldData().getText().toString();
@@ -264,10 +267,10 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
         if(index != -1){
             allObjects.get(index).setData(objectData);
             if(imageUri != null) allObjects.get(index).setImg(imageUri.toString());
-            allObjects.get(index).setName("Laud");
+            allObjects.get(index).setName(name);
         }else {
             if(imageUri != null) {
-                DataObject newObject = new DataObject("Laud", objectData, imageUri.toString());
+                DataObject newObject = new DataObject(name, objectData, imageUri.toString());
                 allObjects.add(newObject);
             }
 

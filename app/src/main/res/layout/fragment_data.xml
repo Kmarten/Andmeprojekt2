@@ -37,6 +37,8 @@
             <!--Placeholders-->
             <EditText
                 android:id="@+id/ObjectName"
+                android:maxLines="1"
+                android:maxLength="15"
                 android:layout_marginTop="48dp"
                 android:layout_width="200dp"
                 android:layout_height="50dp"
@@ -52,9 +54,9 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
-                android:contentDescription="@string/ObjectImg"
-                android:gravity="center"
-                android:src="@drawable/laud" />
+                android:src="@drawable/ic_insert_photo_black_24dp"
+
+              />
 
         </LinearLayout>
     </ScrollView>

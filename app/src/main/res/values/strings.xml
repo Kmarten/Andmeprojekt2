@@ -11,6 +11,8 @@
     <string name="save_object">Save</string>
     <string name="enter_name_hint">Name</string>
     <string name="enter_data_hint">Value</string>
+    <string name="default_category">Category</string>
+    <string name="default_object_name">Default name</string>
 
 
 </resources>
