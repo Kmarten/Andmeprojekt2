@@ -21,10 +21,12 @@ public class MainListObject extends LinearLayout {
     ImageView objectImg;
     ImageView objectFavourite;
     public EditText  objectName;
+    public EditText  objectCategory;
 
     private int objectImgID = View.generateViewId();
     private int objectNameId = View.generateViewId();
     private int objectFavouriteID = View.generateViewId();
+    private int objectCategoryID = View.generateViewId();
     public MainListObject(Context context) {
         super(context);
         init(context);
@@ -44,10 +46,12 @@ public class MainListObject extends LinearLayout {
         this.objectImg = rootView.findViewById(R.id.ObjectImg);
         this.objectFavourite = rootView.findViewById(R.id.favourite);
         this.objectName = rootView.findViewById(R.id.ObjectName);
+        this.objectCategory = rootView.findViewById(R.id.objectCategory);
 
         this.objectImg.setId(objectImgID);
         this.objectName.setId(objectNameId);
         this.objectFavourite.setId(objectFavouriteID);
+        this.objectCategory.setId(objectCategoryID);
 
     }
 

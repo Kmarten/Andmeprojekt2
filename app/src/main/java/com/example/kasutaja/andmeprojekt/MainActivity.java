@@ -78,18 +78,27 @@ public class MainActivity extends AppCompatActivity {
         menuObject.setId(dataObject.getObjectId());
         menuObject.objectName.setInputType(InputType.TYPE_NULL);
         menuObject.objectName.setClickable(true);
+
+        menuObject.objectCategory.setInputType(InputType.TYPE_NULL);
+        menuObject.objectCategory.setClickable(true);
         menuObject.objectName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openObject(view);
+                openObject(menuObject);
             }
         });
+
+        menuObject.objectCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openObject(menuObject);
+            }
+        });
+
         menuObject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                openObject(view);
-               Snackbar my = Snackbar.make(view,"Menyobject clicked",Snackbar.LENGTH_SHORT);
-               my.show();
             }
         });
 
