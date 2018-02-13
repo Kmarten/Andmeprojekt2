@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     int arv;
+    boolean isEditable = false;
     ArrayList<DataObject> allObjects;
 
     @Override
@@ -61,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    protected void openObject(View view) {
+        startActivity(new Intent(MainActivity.this, CreateData.class).putExtra("ObjectId", view.getId()));
+    }
     protected void addField(DataObject dataObject) {
         LinearLayout ll = findViewById(R.id.llMainActivity);
         MainListObject menuObject = new MainListObject(getApplicationContext());
@@ -70,10 +76,20 @@ public class MainActivity extends AppCompatActivity {
         ));
 
         menuObject.setId(dataObject.getObjectId());
+        menuObject.objectName.setInputType(InputType.TYPE_NULL);
+        menuObject.objectName.setClickable(true);
+        menuObject.objectName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openObject(view);
+            }
+        });
         menuObject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, CreateData.class).putExtra("ObjectId", view.getId()));
+               openObject(view);
+               Snackbar my = Snackbar.make(view,"Menyobject clicked",Snackbar.LENGTH_SHORT);
+               my.show();
             }
         });
 

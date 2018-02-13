@@ -20,7 +20,7 @@ public class MainListObject extends LinearLayout {
     View rootView;
     ImageView objectImg;
     ImageView objectFavourite;
-    EditText  objectName;
+    public EditText  objectName;
 
     private int objectImgID = View.generateViewId();
     private int objectNameId = View.generateViewId();
