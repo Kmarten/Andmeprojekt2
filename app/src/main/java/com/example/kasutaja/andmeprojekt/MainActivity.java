@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     int arv;
+    public boolean allowedToOpen = true;
     ArrayList<DataObject> allObjects;
 
     @Override
@@ -73,7 +74,16 @@ public class MainActivity extends AppCompatActivity {
         menuObject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, CreateData.class).putExtra("ObjectId", view.getId()));
+                allowedToOpen = true;
+            }
+        });
+        menuObject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(allowedToOpen) {
+                    allowedToOpen = false;
+                    startActivity(new Intent(MainActivity.this, CreateData.class).putExtra("ObjectId", view.getId()));
+                }
             }
         });
 
