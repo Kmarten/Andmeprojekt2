@@ -33,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.kasutaja.andmeprojekt.customViews.TextDataView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -232,10 +233,11 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
             if(requestCode == SELECT_FILE){
                 try {
                     imageUri = data.getData();
-                    File imageFile = new File("File:////" + Environment.getExternalStorageDirectory() + imageUri.getPath());
+                    Glide.with(this).load(imageUri).into(ivObjectImage);
+                    //File imageFile = new File("File:////" + Environment.getExternalStorageDirectory() + imageUri.getPath());
                     //InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
-                    Bitmap selectedImage = decodeSampledBitmapFromFile(imageFile,300,300);
-                    ivObjectImage.setImageBitmap(selectedImage);
+                    //Bitmap selectedImage = decodeSampledBitmapFromFile(imageFile,300,300);
+                    //ivObjectImage.setImageBitmap(selectedImage);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

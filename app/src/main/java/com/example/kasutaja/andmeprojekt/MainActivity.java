@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.kasutaja.andmeprojekt.customViews.MainListObject;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -111,10 +112,11 @@ public class MainActivity extends AppCompatActivity { //implements View.OnClickL
         menuObject.setObjectName(dataObject.getName());
         //InputStream imageStream = null;
         try {
+            Glide.with(this).load(dataObject.getImg()).into(menuObject.objectImg);
             //imageStream = getContentResolver().openInputStream(Uri.parse(dataObject.getImg()));
-            Bitmap selectedImage = CreateFragment.decodeSampledBitmapFromFile(new File("File:////" + Environment.getExternalStorageDirectory() + Uri.parse(dataObject.getImg()).getPath()),300,300);
+            //Bitmap selectedImage = CreateFragment.decodeSampledBitmapFromFile(new File("File:////" + Environment.getExternalStorageDirectory() + Uri.parse(dataObject.getImg()).getPath()),300,300);
             //Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-            menuObject.objectImg.setImageBitmap(selectedImage);
+            //menuObject.objectImg.setImageBitmap(selectedImage);
         } catch (Exception e) {
             e.printStackTrace();
         }
