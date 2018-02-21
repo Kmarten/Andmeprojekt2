@@ -34,6 +34,8 @@ import com.example.kasutaja.andmeprojekt.customViews.TextDataView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -129,21 +131,6 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
                 }
             }
         });
-
-
-        //Läheb vaja seda
-        /*btDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(editable) {
-                    delete(index);
-                    saveDataToMobile();
-                    startActivity(new Intent(getActivity(), MainActivity.class));
-                }
-            }
-        });
-*/
-
         return inflated;
     }
 
@@ -169,6 +156,33 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
         builder.show();
     }
 
+    //Ei tööta
+  /* private Bitmap decodeFile(File f) {
+        try {
+            // Decode image size
+            BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(new FileInputStream(f), null, o);
+
+            // The new size we want to scale to
+            final int REQUIRED_SIZE=30;
+
+            // Find the correct scale value. It should be the power of 2.
+            int scale = 1;
+            while(o.outWidth / scale / 2 >= REQUIRED_SIZE &&
+                    o.outHeight / scale / 2 >= REQUIRED_SIZE) {
+                scale *= 2;
+            }
+
+            // Decode with inSampleSize
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize = scale;
+            return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
+        } catch (FileNotFoundException e) {
+            Log.v("Error:",e.getMessage());
+        }
+        return null;
+    }*/
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -178,10 +192,15 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
             if(requestCode == SELECT_FILE){
                 try {
                     imageUri = data.getData();
+                    //File imageFile = new File(imageUri.getPath());
                     InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
+
+
+                    //Bitmap selectedImage = decodeFile(imageFile);
                     Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+
                     ivObjectImage.setImageBitmap(selectedImage);
-                } catch (FileNotFoundException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

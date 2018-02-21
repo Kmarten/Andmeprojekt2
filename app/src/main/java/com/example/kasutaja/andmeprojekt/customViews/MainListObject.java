@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ToggleButton;
 
 import com.example.kasutaja.andmeprojekt.R;
 
@@ -18,8 +19,8 @@ import com.example.kasutaja.andmeprojekt.R;
 
 public class MainListObject extends LinearLayout {
     View rootView;
-    ImageView objectImg;
-    ImageView objectFavourite;
+    ToggleButton objectFavourite;
+    public ImageView objectImg;
     public EditText  objectName;
     public EditText  objectCategory;
 
@@ -67,12 +68,11 @@ public class MainListObject extends LinearLayout {
         this.objectName.setText(name);
     }
 
+    public void setCategory(String name) {
+        this.objectFavourite.setText(name);
+    }
     public void setObjectImg(Bitmap img) {
         this.objectImg.setImageBitmap(img);
-    }
-
-    public void setFavourite(Bitmap favourite) {
-        this.objectFavourite.setImageBitmap(favourite);
     }
 
     @Override
