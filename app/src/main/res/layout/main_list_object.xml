@@ -15,6 +15,7 @@
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_insert_photo_black_24dp"
+        android:contentDescription="@string/ObjectImg"
         app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"

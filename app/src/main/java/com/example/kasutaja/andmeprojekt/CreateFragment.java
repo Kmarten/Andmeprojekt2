@@ -10,11 +10,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -38,12 +35,9 @@ import com.example.kasutaja.andmeprojekt.customViews.TextDataView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.File;
-import java.io.FileInputStream;
+
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -162,68 +156,6 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
         builder.show();
     }
 
-    public static Bitmap decodeSampledBitmapFromFile(File f, int reqWidth, int reqHeight) { // BEST QUALITY MATCH
-        String path = f.getAbsolutePath();
-
-        // First decode with inJustDecodeBounds=true to check dimensions
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(path, options);
-
-        // Calculate inSampleSize
-        // Raw height and width of background
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        options.inPreferredConfig = Bitmap.Config.RGB_565;
-        int inSampleSize = 1;
-
-        if (height > reqHeight) {
-            inSampleSize = Math.round((float) height / (float) reqHeight);
-        }
-
-        int expectedWidth = width / inSampleSize;
-
-        if (expectedWidth > reqWidth) {
-            inSampleSize = Math.round((float) width / (float) reqWidth);
-        }
-
-        options.inSampleSize = inSampleSize;
-
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-
-        // Correct rotation
-        ExifInterface exif = null;
-        try {
-            exif = new ExifInterface(f.getPath());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        int rotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-        int rotationInDegrees = exifToDegrees(rotation);
-        Matrix matrix = new Matrix();
-        if (rotation != 0f) {
-            matrix.preRotate(rotationInDegrees);
-        }
-
-        Bitmap output = BitmapFactory.decodeFile(path, options);
-        if (output != null) {
-            return Bitmap.createBitmap(output, 0, 0, output.getWidth(), output.getHeight(), matrix, false);
-        } else {
-            return null;
-        }
-    }
-
-    public static int exifToDegrees(int exifOrientation) {
-        if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
-            return 90;
-        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
-            return 180;
-        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
-            return 270;
-        }
-        return 0;
-    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -234,10 +166,6 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
                 try {
                     imageUri = data.getData();
                     Glide.with(this).load(imageUri).into(ivObjectImage);
-                    //File imageFile = new File("File:////" + Environment.getExternalStorageDirectory() + imageUri.getPath());
-                    //InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
-                    //Bitmap selectedImage = decodeSampledBitmapFromFile(imageFile,300,300);
-                    //ivObjectImage.setImageBitmap(selectedImage);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

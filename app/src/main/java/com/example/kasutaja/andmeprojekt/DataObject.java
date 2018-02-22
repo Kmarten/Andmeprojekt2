@@ -1,8 +1,5 @@
 package com.example.kasutaja.andmeprojekt;
 
-import android.graphics.Bitmap;
-import android.media.Image;
-import android.net.Uri;
 import android.util.Log;
 
 import java.util.Date;

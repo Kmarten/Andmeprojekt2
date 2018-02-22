@@ -4,8 +4,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ObjectImg">Display object picture</string>
-    <string name="human_first_name">Name</string>
-    <string name="human_last_name">Last Name</string>
     <string name="data_name_blank">Data name</string>
     <string name="data_blank">Data</string>
     <string name="save_object">Save</string>
@@ -15,6 +13,9 @@
     <string name="default_object_name">Default name</string>
     <string name="object_name_hint">Object Name</string>
     <string name="category_hint">Category</string>
+    <string name="object_name_fragment_data">Object name</string>
+    <string name="done_button_fragment_toolbar">Done button</string>
+    <string name="edit_button_fragment_toolbar">Edit button</string>
 
 
 </resources>

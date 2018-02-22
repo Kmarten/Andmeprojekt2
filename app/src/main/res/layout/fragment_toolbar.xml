@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/ic_done"
         android:visibility="invisible"
+        android:contentDescription="@string/done_button_fragment_toolbar"
         />
     <TextView
         android:gravity="center_vertical"
@@ -28,5 +29,6 @@
         android:layout_height="wrap_content"
         android:foregroundGravity="center_vertical"
         android:layout_marginStart="150dp"
-        android:background="@drawable/ic_edit_object"/>
+        android:background="@drawable/ic_edit_object"
+        android:contentDescription="@string/edit_button_fragment_toolbar"/>
     </android.support.v7.widget.Toolbar>
