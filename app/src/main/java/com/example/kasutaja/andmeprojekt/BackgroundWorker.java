@@ -71,15 +71,17 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
     @Override
     protected void onPreExecute() {
         alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setTitle("Login Staatus");
+        alertDialog.setTitle("Staatus");
     }
 
     @Override
     protected void onPostExecute(String result) {
         alertDialog.setMessage(result);
         alertDialog.show();
-        Intent intent = new Intent(context, MainActivity.class);
-        context.startActivity(intent);
+        if (result.contains("õnnestus")) {
+            Intent intent = new Intent(context, MainActivity.class);
+            context.startActivity(intent);
+        }
     }
 
     @Override
