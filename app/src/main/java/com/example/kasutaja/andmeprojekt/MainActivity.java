@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -31,8 +32,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         retrieveDataFromPhone();
-
+        Log.e("Tag", String.valueOf(allObjects.size()));
         if(allObjects != null) {
+
             arv = allObjects.size();
             for (DataObject dO : allObjects) {
                 addField(dO);
@@ -74,10 +76,8 @@ public class MainActivity extends AppCompatActivity {
         ));
         menuObject.setId(dataObject.getObjectId());
         menuObject.setObjectName(dataObject.getName());
-        try {
+        if(dataObject.getImg() != null) {
             Glide.with(this).load(dataObject.getImg()).into(menuObject.objectImg);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         menuObject.objectName.setInputType(InputType.TYPE_NULL);
         menuObject.objectName.setClickable(true);
