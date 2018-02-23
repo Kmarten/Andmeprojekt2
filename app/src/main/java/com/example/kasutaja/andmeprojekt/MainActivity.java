@@ -19,7 +19,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-
     int arv;
     boolean isEditable = false;
     ArrayList<DataObject> allObjects;
