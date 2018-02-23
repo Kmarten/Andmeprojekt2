@@ -18,6 +18,8 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+
     int arv;
     boolean isEditable = false;
     ArrayList<DataObject> allObjects;
@@ -25,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
         retrieveDataFromPhone();
 
         if(allObjects != null) {
@@ -35,17 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
-
-        FloatingActionButton fb = findViewById(R.id.dataFloatingActionButton);
-
-        fb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), CreateData.class));
-            }
-        });
-
-
 
     }
 
@@ -107,4 +100,5 @@ public class MainActivity extends AppCompatActivity {
 
         ll.addView(menuObject);
     }
+
 }
