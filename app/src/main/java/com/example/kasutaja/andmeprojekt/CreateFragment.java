@@ -204,14 +204,10 @@ public class CreateFragment extends Fragment implements AppCompatCallback {
         for(String key : keys){
             addField(key, objectHashMap.get(key));
         }
-        InputStream imageStream = null;
-        try {
-            imageStream = getActivity().getContentResolver().openInputStream(Uri.parse(dataObject.getImg()));
-            Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-            ivObjectImage.setImageBitmap(selectedImage);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        if(dataObject.getImg() != null) {
+            Glide.with(this).load(dataObject.getImg()).into(ivObjectImage);
         }
+
 
     }
 
