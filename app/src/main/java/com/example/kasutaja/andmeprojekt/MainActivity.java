@@ -40,6 +40,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        FloatingActionButton fb = findViewById(R.id.dataFloatingActionButton);
+        fb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            startActivity(new Intent(getApplicationContext(), CreateData.class));
+            }
+        });
+
     }
 
 
