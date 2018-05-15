@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     int arv;
-    boolean isEditable = false;
+    boolean isEditabe = false;
     ArrayList<DataObject> allObjects;
 
     @Override
